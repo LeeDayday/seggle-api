@@ -23,8 +23,8 @@ class ListAnnouncementsAdmin(APIView):
         announcement = {
             "title": data["title"],
             "description": data["description"],
-            "visible": data["is_visible"],
-            "important": data["is_important"],
+            "is_visible": data["is_visible"],
+            "is_important": data["is_important"],
             # writer
         }
         serializer = AnnouncementSerializer(data=announcement)
@@ -75,8 +75,8 @@ class ListAnnouncementCheckAdmin(APIView):
         announcement = get_object_or_404(Announcement, pk=pk)
         data = request.data
         obj = {
-            "important": data["is_important"],
-            "visible": data["is_visible"]
+            "is_important": data["is_important"],
+            "is_visible": data["is_visible"]
         }
         serializer = AnnouncementSerializer(announcement, data=obj)
         if serializer.is_valid():
