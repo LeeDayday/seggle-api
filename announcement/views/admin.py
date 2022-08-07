@@ -82,11 +82,13 @@ class ListAnnouncementCheckAdmin(APIView):
     def put(self, request, pk):
         announcement = get_object_or_404(Announcement, pk=pk)
         data = request.data
-        obj = {
+        put_data = {
+            "title": announcement.title,
+            "description": announcement.description,
             "is_important": data["is_important"],
             "is_visible": data["is_visible"]
         }
-        serializer = AnnouncementSerializer(announcement, data=obj)
+        serializer = AnnouncementSerializer(announcement, data=put_data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
