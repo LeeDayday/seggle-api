@@ -48,7 +48,15 @@ class ListAnnouncementsDetailAdmin(APIView):
     # 00-13 공지 사항 수정
     def put(self, request, pk):
         announcement = self.get_object(pk)
-        serializer = AnnouncementSerializer(announcement)
+        data = request.data
+        put_data = {
+            "title": data["title"],
+            "description": data["description"],
+            "is_visible": data["is_visible"],
+            "is_important": data["is_important"],
+            # writer
+        }
+        serializer = AnnouncementSerializer(announcement, data=put_data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
